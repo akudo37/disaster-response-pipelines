@@ -10,12 +10,17 @@ from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
-from ..models.train_classfier import tokenize  # using my own tokenizer
+
+from models.train_classifier import TextLengthExtractor
+# importing custom transportation class in order to avoid following error, 
+# "AttributeError: module '__main__' has no attribute 'TextLengthExtractor'"
+# related web articles as follows:
+# https://chase-seibert.github.io/blog/2013/04/19/python-pickle-attributeerror-module-has-no-attribute.html
+# https://www.stefaanlippens.net/python-pickling-and-dealing-with-attributeerror-module-object-has-no-attribute-thing.html
 
 app = Flask(__name__)
 
-# replaced tokenizer with my own (imported)
-'''def tokenize(text):
+def tokenize(text):
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -25,14 +30,14 @@ app = Flask(__name__)
         clean_tokens.append(clean_tok)
 
     return clean_tokens
-'''
+
 
 # load data
-engine = create_engine('sqlite:///../data/DisasterResponse.db')
+engine = create_engine('sqlite:///./data/DisasterResponse.db')
 df = pd.read_sql_table('response', engine)
 
 # load model
-model = joblib.load("../models/classifier.pkl")
+model = joblib.load("./models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
