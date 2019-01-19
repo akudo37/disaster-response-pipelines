@@ -21,20 +21,20 @@ The project includes a web app where an emergency worker can input a new message
 3. Go to http://0.0.0.0:3001/
 
 ### Folder structure (explanations):
-.
-├── app
-│   ├── run.py  # Flask file that runs app
-│   └── templates
-│       ├── master.html  # main page of web app
-│       └── go.html  # classification result page of web app
-├── data
-│   ├── disaster_categories.csv  # data source
-│   ├── disaster_messages.csv  # data source
-│   ├── process_data.py  # ETL pipeline script
-│   └── DisasterResponse.db  # database to save clean data to
-├── models
-│   ├── train_classifier.py  # ML pipeline script
-│   ├── text_preprocess.py  # custom function and class
-│   ├── classifier.pkl  # saved model
-│   └── __init__.py  # python package init file
-└── README.md
+.<br>
+├── app<br>
+│   ├── run.py  # Flask file that runs app<br>
+│   └── templates<br>
+│       ├── master.html  # main page of web app<br>
+│       └── go.html  # classification result page of web app<br>
+├── data<br>
+│   ├── disaster_categories.csv  # data source<br>
+│   ├── disaster_messages.csv  # data source<br>
+│   ├── process_data.py  # ETL pipeline script<br>
+│   └── DisasterResponse.db  # database to save clean data to<br>
+├── models<br>
+│   ├── train_classifier.py  # ML pipeline script<br>
+│   ├── text_preprocess.py  # custom function and class<br>
+│   ├── classifier.pkl  # saved model<br>
+│   └── __init__.py  # python package init file<br>
+└── README.md<br>
