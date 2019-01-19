@@ -17,8 +17,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.externals import joblib
-from text_preprocessing import tokenize
-from text_preprocessing import TextLengthExtractor
+from text_preprocess import tokenize, TextLengthExtractor  # custom function and class
 
 
 def load_data(database_filepath):

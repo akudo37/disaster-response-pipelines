@@ -11,18 +11,18 @@ from plotly.graph_objs import Bar
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
-# I had to copy a file defining my own function and class used to 'app' directory.
-from text_preprocessing import tokenize  # using my own tokenizer instead of the original provided
-from text_preprocessing import TextLengthExtractor
-# importing custom transportation class in order to avoid following error, 
-# "AttributeError: module '__main__' has no attribute 'TextLengthExtractor'"
-# related web articles as follows:
-# https://chase-seibert.github.io/blog/2013/04/19/python-pickle-attributeerror-module-has-no-attribute.html
-# https://www.stefaanlippens.net/python-pickling-and-dealing-with-attributeerror-module-object-has-no-attribute-thing.html
+# necessary for loading dependency class in the same module name as the model is built
+import sys
+sys.path.append('../models')
+
+# using my own tokenizer instead of the original provided
+# also using custom transformer for getting message length
+from text_preprocess import tokenize, TextLengthExtractor
+
 
 app = Flask(__name__)
 
-# using my own tokenizer (imported) instead of the original provided
+# using my own tokenizer (imported) instead of the original provided as follows
 '''def tokenize(text):
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
