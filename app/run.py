@@ -1,6 +1,7 @@
 import json
 import plotly
 import pandas as pd
+import numpy as np
 
 #from nltk.stem import WordNetLemmatizer
 #from nltk.tokenize import word_tokenize
@@ -50,24 +51,69 @@ def index():
 
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
-    genre_counts = df.groupby('genre').count()['message']
-    genre_names = list(genre_counts.index)
+    #genre_counts = df.groupby('genre').count()['message']
+    #genre_names = list(genre_counts.index)
+
+    # graph 1: message hit count distribution by category
+    category_names = list(df.columns.values)[4:]
+    category_hit_counts = [df[col].sum() for col in list(category_names)]
+    
+    category_names = list(np.array(category_names)[np.argsort(category_hit_counts)])[::-1] # sort
+    category_hit_counts = sorted(category_hit_counts, reverse=True) # sort
+
+    # graph 2: message hit count distribution by genre
+    df_melt = df.melt(id_vars=['id', 'genre'
+                              ], value_vars=category_names, var_name='category', value_name='hit_count')
+    genre_hit_counts = df_melt.groupby('genre').sum()['hit_count']
+    genre_names = list(genre_hit_counts.index)
+
+    genre_names = list(np.array(genre_names)[np.argsort(genre_hit_counts)])[::-1] # sort
+    genre_hit_counts = sorted(genre_hit_counts, reverse=True) # sort
 
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
+        # graph 1
         {
             'data': [
                 Bar(
-                    x=genre_names,
-                    y=genre_counts
+                    x=category_names,
+                    y=category_hit_counts
                 )
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Distribution of Category Hits',
                 'yaxis': {
-                    'title': "Count"
+                    'title': "Hit Count"
+                },
+                'xaxis': {
+                    'title': "Category",
+                    'tickangle': '45'
+                },
+                'margin': {
+                    'l': '80',  # default 80
+                    'r': '80',  # default 80
+                    't': '100',  # default 100
+                    'b': '150',  # default 80
+                    'pad': '0'  # default 0
+                }
+            }
+        },
+        
+        # graph 2
+        {
+            'data': [
+                Bar(
+                    x=genre_names,
+                    y=genre_hit_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Genre Hits',
+                'yaxis': {
+                    'title': "Hit Count"
                 },
                 'xaxis': {
                     'title': "Genre"
