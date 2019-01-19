@@ -3,19 +3,20 @@
 """
 Text preprocess function and class
 - tokenize: custom function
-- TextLengthExtractor: custom transformer class 
+- TextLengthExtractor: custom transformer class
 """
 # import libraries
+import pandas as pd
+from sklearn.base import BaseEstimator, TransformerMixin
+
+import re
 import nltk
+from nltk.corpus import stopwords
+from nltk.stem.wordnet import WordNetLemmatizer
+
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
-from nltk.corpus import stopwords
-from nltk.stem.wordnet import WordNetLemmatizer
-import re
-
-import pandas as pd
-from sklearn.base import BaseEstimator, TransformerMixin
 
 
 def tokenize(text):

@@ -10,14 +10,15 @@ import pandas as pd
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.multiclass import OneVsRestClassifier
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import LinearSVC
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.externals import joblib
-from text_preprocess import tokenize, TextLengthExtractor  # custom function and class
+
+# custom function and class
+from text_preprocess import tokenize, TextLengthExtractor
 
 
 def load_data(database_filepath):
@@ -118,8 +119,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
     Y_pred = model.predict(X_test)
 
     for i, name in enumerate(category_names):
-        print(classification_report(Y_test.values[:, i],
-                                    Y_pred[:, i], target_names=[name]))
+        print(name, classification_report(Y_test.values[:, i], Y_pred[:, i]))
 
 
 def save_model(model, model_filepath):
