@@ -1,7 +1,7 @@
 # Disaster Response Pipeline Project
 
 ### Instructions:
-1. Run the following commands in the app's directory to set up your database and model.
+1. Run the following commands in the workspace's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
         `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
@@ -12,3 +12,5 @@
     `python run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+Note. text_preprocessing.py both in app and models folders are identical.
